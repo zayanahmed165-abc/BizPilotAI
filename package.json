@@ -1,0 +1,26 @@
+{
+  "name": "bizpilotai",
+  "version": "1.0.0",
+  "description": "## Install In the project venv: ```powershell pip install flask flask-cors python-dotenv oracledb werkzeug ``` Copy the files into your existing project, retaining folders. Keep your actual Oracle configuration in root `.env`.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zayanahmed165-abc/BizPilot-AI-Render.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zayanahmed165-abc/BizPilot-AI-Render/issues"
+  },
+  "homepage": "https://github.com/zayanahmed165-abc/BizPilot-AI-Render#readme",
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "oracledb": "^26.0.0"
+  }
+}

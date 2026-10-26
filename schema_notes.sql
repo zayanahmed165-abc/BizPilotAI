@@ -1,0 +1,6 @@
+-- This package assumes the existing tables:
+-- PRODUCTS(PRODUCT_ID, PRODUCT_NAME, CATEGORY, STOCK_QUANTITY, UNIT_PRICE, ...)
+-- SALES has TOTAL_AMOUNT and SALE_ID
+-- EXPENSES has AMOUNT and EXPENSE_ID
+-- Single admin credentials are stored in the environment as a password hash.
+-- No separate Oracle login table is required for this configuration.

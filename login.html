@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090a0d">
+
+  <title>BizPilot AI | Admin Login</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f4df91;
+      --background: #090a0d;
+      --text: #f7f5ef;
+      --muted: #a4a5ad;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 18px;
+      overflow-x: hidden;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 15% 15%, #30250d 0%, transparent 42%),
+        radial-gradient(ellipse at 85% 85%, #24200f 0%, transparent 40%),
+        linear-gradient(135deg, #08090c, #111216 55%, #08090c);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border: 1px solid rgba(212, 175, 55, 0.13);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    body::before {
+      top: -180px;
+      right: -100px;
+      box-shadow: 0 0 80px rgba(212, 175, 55, 0.06);
+    }
+
+    body::after {
+      bottom: -220px;
+      left: -100px;
+      width: 420px;
+      height: 420px;
+      animation-delay: -5s;
+    }
+
+    .login-shell {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 1;
+      animation: appear 0.7s ease both;
+    }
+
+    .login-brand {
+      text-align: center;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+    }
+
+    .login-brand .gold {
+      color: var(--gold);
+    }
+
+    .brand-symbol {
+      color: var(--gold);
+      font-size: 29px;
+      margin-right: 5px;
+    }
+
+    .login-kicker {
+      color: var(--gold-light);
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 3px;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+
+    .login-card {
+      padding: 36px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 22px;
+      background: rgba(18, 19, 23, 0.91);
+      backdrop-filter: blur(18px);
+      box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.42),
+        0 0 35px rgba(212, 175, 55, 0.045);
+    }
+
+    .login-icon {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 15px;
+      background: rgba(212, 175, 55, 0.09);
+      color: var(--gold);
+      font-size: 25px;
+    }
+
+    .login-card h1 {
+      font-size: 28px;
+      letter-spacing: -0.8px;
+      margin-bottom: 9px;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    #login-form label {
+      display: block;
+      margin-bottom: 19px;
+      color: #e7e5de;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    #login-form input {
+      width: 100%;
+      height: 48px;
+      margin-top: 9px;
+      padding: 0 14px;
+      border: 1px solid #34353b;
+      border-radius: 10px;
+      outline: none;
+      background: #0d0e12;
+      color: white;
+      font: inherit;
+      font-size: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    #login-form input::placeholder {
+      color: #696b74;
+    }
+
+    #login-form input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 65px !important;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 10px;
+      bottom: 12px;
+      border: 0;
+      background: transparent;
+      color: var(--gold-light);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .primary-btn {
+      width: 100%;
+      min-height: 49px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: 1px solid #e4c65c;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #f0d778, #c5a12d);
+      color: #171307;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    }
+
+    .primary-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 9px 26px rgba(212, 175, 55, 0.19);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .login-message {
+      display: none;
+      margin-top: 16px;
+      padding: 11px 12px;
+      border: 1px solid rgba(239, 100, 100, 0.3);
+      border-radius: 9px;
+      background: rgba(239, 68, 68, 0.08);
+      color: #ffaaaa;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .login-message.visible {
+      display: block;
+    }
+
+    .login-footer {
+      margin-top: 25px;
+      text-align: center;
+      color: #777881;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(24px) rotate(12deg); }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 27px 22px;
+      }
+
+      .login-brand {
+        font-size: 30px;
+      }
+
+      .login-card h1 {
+        font-size: 25px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="login-shell">
+
+    <div class="login-brand">
+      <span class="brand-symbol">✦</span>BizPilot
+      <span class="gold">AI</span>
+    </div>
+
+    <div class="login-kicker">
+      BUSINESS INTELLIGENCE PLATFORM
+    </div>
+
+    <section class="login-card">
+
+      <div class="login-icon">✦</div>
+
+      <h1>Welcome back</h1>
+
+      <p class="intro">
+        Sign in to your admin workspace and manage your business intelligence.
+      </p>
+
+      <form id="login-form">
+
+        <label for="username">
+          Admin username
+
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            placeholder="Enter admin username"
+            required
+          >
+        </label>
+
+        <label for="password">
+          Password
+
+          <div class="password-wrap">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required
+            >
+
+            <button
+              class="show-password"
+              id="toggle-password"
+              type="button"
+              aria-label="Show password"
+            >SHOW</button>
+          </div>
+        </label>
+
+        <button
+          class="primary-btn"
+          id="submit-button"
+          type="submit"
+        >
+          <span id="button-text">Sign in to workspace</span>
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <p
+          id="login-message"
+          class="login-message"
+          role="alert"
+          aria-live="polite"
+        ></p>
+
+      </form>
+    </section>
+
+    <footer class="login-footer">
+      SECURE ADMIN ACCESS · BIZPILOT AI
+    </footer>
+
+  </main>
+
+  <script>
+    const form = document.getElementById("login-form");
+    const message = document.getElementById("login-message");
+    const submitButton = document.getElementById("submit-button");
+    const buttonText = document.getElementById("button-text");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("toggle-password");
+
+    // Show or hide password
+    togglePassword.addEventListener("click", () => {
+      const showing = passwordInput.type === "text";
+
+      passwordInput.type = showing ? "password" : "text";
+      togglePassword.textContent = showing ? "SHOW" : "HIDE";
+
+      togglePassword.setAttribute(
+        "aria-label",
+        showing ? "Show password" : "Hide password"
+      );
+    });
+
+    function showMessage(text) {
+      message.textContent = text;
+      message.classList.add("visible");
+    }
+
+    function clearMessage() {
+      message.textContent = "";
+      message.classList.remove("visible");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearMessage();
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!username || !password) {
+        showMessage("Please enter both username and password.");
+        return;
+      }
+
+      submitButton.disabled = true;
+      buttonText.textContent = "Checking credentials...";
+
+      try {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "same-origin",
+          cache: "no-store",
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error(
+              "Username or password is incorrect. Check your .env settings."
+            );
+          }
+
+          throw new Error(
+            data.message || `Server returned error ${response.status}.`
+          );
+        }
+
+        if (!data.success) {
+          throw new Error(data.message || "Login failed.");
+        }
+
+        buttonText.textContent = "Login successful...";
+
+        // Verify that the server has saved the session cookie.
+        const sessionResponse = await fetch("/api/session", {
+          credentials: "same-origin",
+          cache: "no-store"
+        });
+
+        const sessionData = await sessionResponse.json();
+
+        if (!sessionResponse.ok || !sessionData.authenticated) {
+          throw new Error(
+            "Login response received, but the session was not established. Check server cookie settings."
+          );
+        }
+
+        window.location.assign(data.redirect || "/dashboard");
+
+      } catch (error) {
+        console.error("Login error:", error);
+
+        if (error instanceof TypeError) {
+          showMessage(
+            "Cannot connect to the server. Make sure node server.js is running."
+          );
+        } else {
+          showMessage(error.message || "Login failed. Please try again.");
+        }
+
+        submitButton.disabled = false;
+        buttonText.textContent = "Sign in to workspace";
+      }
+    });
+  </script>
+</body>
+</html>

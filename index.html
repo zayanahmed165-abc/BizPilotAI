@@ -1,0 +1,212 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BizPilot AI | Business Intelligence</title>
+
+  <!-- Correct CSS path: frontend/style.css -->
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="app-body">
+
+  <aside class="sidebar">
+    <div class="brand">✦ BizPilot <span>AI</span></div>
+
+    <p class="menu-label">WORKSPACE</p>
+
+    <nav>
+      <a href="#dashboard" class="nav-link active" data-page="dashboard">▦ Dashboard</a>
+      <a href="#sales" class="nav-link" data-page="sales">↗ Sales</a>
+      <a href="#expenses" class="nav-link" data-page="expenses">↘ Expenses</a>
+      <a href="#inventory" class="nav-link" data-page="inventory">▤ Inventory</a>
+      <a href="#reports" class="nav-link" data-page="reports">▥ Reports</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="ai-badge">
+        ✦ AI BUSINESS INSIGHTS
+        <small>Smarter decisions start here.</small>
+      </div>
+
+      <div class="profile">
+        <div class="avatar">B</div>
+        <div>
+          Business Admin
+          <small>Administrator</small>
+        </div>
+      </div>
+
+      <button id="logout-btn" class="logout-btn">↪ Log out</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">BUSINESS INTELLIGENCE</span>
+        <h1 id="page-title">Dashboard Overview</h1>
+      </div>
+
+      <div class="top-actions">
+        <span class="live-status">● System Online</span>
+        <button id="refresh-btn" class="secondary-btn">↻ Refresh</button>
+      </div>
+    </header>
+
+    <section id="dashboard" class="page active-page">
+      <div class="welcome">
+        <div>
+          <h2>Your business, at a glance.</h2>
+          <p>Monitor performance and make data-driven decisions.</p>
+        </div>
+        <span class="gold-chip">✦ AI POWERED</span>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span>Total Sales</span>
+          <div class="stat-icon">↗</div>
+          <h2 id="total-sales">PKR —</h2>
+          <small>Revenue overview</small>
+        </article>
+
+        <article class="stat-card">
+          <span>Total Expenses</span>
+          <div class="stat-icon">↘</div>
+          <h2 id="total-expenses">PKR —</h2>
+          <small>Business spending</small>
+        </article>
+
+        <article class="stat-card">
+          <span>Products</span>
+          <div class="stat-icon">▤</div>
+          <h2 id="total-products">—</h2>
+          <small>Inventory items</small>
+        </article>
+
+        <article class="stat-card">
+          <span>Net Profit</span>
+          <div class="stat-icon">✦</div>
+          <h2 id="net-profit">PKR —</h2>
+          <small>Sales minus expenses</small>
+        </article>
+      </div>
+
+      <div class="content-grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Business Performance</h3>
+              <p>Sales and expenses overview</p>
+            </div>
+            <span class="panel-mark">LIVE DATA</span>
+          </div>
+          <div id="performance" class="chart-area">Loading business data...</div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>AI Insights</h3>
+              <p>Business intelligence summary</p>
+            </div>
+          </div>
+          <div id="insights" class="insight-list">Waiting for dashboard data...</div>
+        </article>
+      </div>
+
+      <article class="panel table-panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Quick Inventory</h3>
+            <p>Latest products from your database</p>
+          </div>
+          <button class="text-btn" data-open="inventory">View inventory →</button>
+        </div>
+        <div id="quick-products" class="table-wrap">Loading products...</div>
+      </article>
+
+      <p id="api-message" class="api-message">Connecting...</p>
+    </section>
+
+    <section id="sales" class="page">
+      <div class="section-intro">
+        <h2>Sales Overview</h2>
+        <p>Sales records from your backend.</p>
+      </div>
+      <article class="panel">
+        <div id="sales-content" class="table-wrap">Loading sales...</div>
+      </article>
+    </section>
+
+    <section id="expenses" class="page">
+      <div class="section-intro">
+        <h2>Expense Overview</h2>
+        <p>Monitor business spending.</p>
+      </div>
+      <article class="panel">
+        <div id="expenses-content" class="table-wrap">Loading expenses...</div>
+      </article>
+    </section>
+
+    <section id="inventory" class="page">
+      <div class="section-intro">
+        <h2>Inventory Management</h2>
+        <p>View and add inventory items.</p>
+      </div>
+
+      <article class="panel">
+        <form id="product-form" class="product-form">
+          <label>
+            Product name
+            <input id="product-name" required placeholder="Product name">
+          </label>
+
+          <label>
+            Category
+            <input id="product-category" placeholder="General">
+          </label>
+
+          <label>
+            Quantity
+            <input id="product-quantity" type="number" min="0" required placeholder="0">
+          </label>
+
+          <label>
+            Unit price (PKR)
+            <input id="product-price" type="number" min="0" step="0.01" required placeholder="0.00">
+          </label>
+
+          <button class="primary-btn" type="submit">+ Add Product</button>
+        </form>
+
+        <p id="form-message" class="form-message"></p>
+      </article>
+
+      <article class="panel">
+        <div id="products-content" class="table-wrap">Loading inventory...</div>
+      </article>
+    </section>
+
+    <section id="reports" class="page">
+      <div class="section-intro">
+        <h2>Business Reports</h2>
+        <p>Summary using available business data.</p>
+      </div>
+
+      <article class="panel">
+        <div id="report-content">Generate a summary from current data.</div>
+        <button id="report-btn" class="primary-btn">Generate Summary</button>
+      </article>
+    </section>
+  </main>
+
+  <!-- JavaScript: frontend/static/script.js -->
+  <script src="/script.js"></script>
+
+</body>
+</html>
+```
